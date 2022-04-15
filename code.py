@@ -13,4 +13,4 @@ def main():
             data["losses"] += 1
     
     with open("output.json", "w") as f:
-        json.dumps(data, f)
+        json.dump(data, f)
