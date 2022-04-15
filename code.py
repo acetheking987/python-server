@@ -4,7 +4,7 @@ def main():
 
     data = {"losses": 0, "wins": 0, "numbers": {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0}}
 
-    for i in range(5000):
+    for i in range(50000):
         random_number = random.randint(1, 6)
         data["numbers"][random_number] += 1
         if random_number == 6:
