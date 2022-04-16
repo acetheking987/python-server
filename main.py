@@ -7,7 +7,7 @@ import datetime
 import time
 
 G = Github(open("key.txt", "r").read())
-VERSION = 1.2
+VERSION = 1.3
 # secret
 
 def update_check():
