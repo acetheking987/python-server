@@ -6,7 +6,7 @@ import update
 import datetime
 import time
 
-G = Github("")
+G = Github(open("key.txt", "r").read())
 VERSION = 1.2
 
 def update_check():
@@ -18,6 +18,7 @@ def update_check():
 def main():
     while True:
         try:
+            update_check()
             repo = G.get_repo("acetheking987/python-server")
             content = repo.get_contents("code.py")
             open("programme.py", "wb").write(content.decoded_content)
@@ -31,10 +32,15 @@ def main():
             print(f"took {round(end - start, 3)}s to complete")
 
         except Exception as e:
-            file = f"error{datetime.datetime.now().strftime('%d/%m/%H:%M:%S')}.md"
-            repo.create_file(file, "created new error file", e)
-            print("error")
-            pass
-    
+            try:
+                file = f"error{datetime.datetime.now().strftime('%d/%m/%H:%M:%S')}.md"
+                repo.create_file(file, "created new error file", e)
+                print("error")
+                pass
+
+            except:
+                sl(60)
+                pass
+
 if __name__ == '__main__':
    update_check()
