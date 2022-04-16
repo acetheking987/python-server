@@ -20,4 +20,4 @@ def main():
     data["win rate"] = str(round(data["wins"] / (data["wins"] + data["losses"]) * 100, 2)) + "%"
     
     with open("output.json", "w") as f:
-        json.dump(data, f)
+        json.dump(data, f, indent = 4, sort_keys = True)
