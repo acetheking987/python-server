@@ -8,6 +8,7 @@ import time
 
 G = Github(open("key.txt", "r").read())
 VERSION = 1.2
+# secret
 
 def update_check():
     repo = G.get_repo("acetheking987/python-server")
