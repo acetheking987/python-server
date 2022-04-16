@@ -8,6 +8,8 @@ def main():
             "win rate": "0%"}
 
     for i in range(50000000):
+        if i % 1000000 == 0:
+            print(i)
         random_number = random.randint(1, 6)
         data["numbers"][random_number] += 1
         if random_number == 6:
