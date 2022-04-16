@@ -8,7 +8,7 @@ def main():
             "win rate": "0%"}
 
     for i in range(50000000):
-        if i % 1000000 == 0:
+        if i % 500000 == 0:
             print(i)
         random_number = random.randint(1, 6)
         data["numbers"][random_number] += 1
@@ -18,6 +18,6 @@ def main():
             data["losses"] += 1
 
     data["win rate"] = str(round(data["wins"] / (data["wins"] + data["losses"]) * 100, 2)) + "%"
-    
+
     with open("output.json", "w") as f:
-        json.dump(data, f, indent = 4, sort_keys = True)
+        json.dump(data, f, indent = 4)
