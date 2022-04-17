@@ -39,7 +39,7 @@ def main():
                 file = f"{datetime.datetime.now().strftime('%d/%m/output %H:%M:%S')}.json"
                 repo.create_file(file, f"took {round(end - start, 3)}s to complete", json.dumps(upload))
 
-            print(f"took {round(end - start, 3)}s to complete")
+            print(f"took {round(end - start, 3)}s to complete  |  cycle {cycles}")
 
             if cycles % 60 == 0:
                 content = repo.get_contents("stats.md")
