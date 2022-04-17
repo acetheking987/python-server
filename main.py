@@ -7,7 +7,7 @@ import datetime
 import time
 
 G = Github(open("key.txt", "r").read())
-VERSION = 1.4
+VERSION = 1.5
 
 def update_check():
     repo = G.get_repo("acetheking987/python-server")
@@ -44,4 +44,4 @@ def main():
                 pass
 
 if __name__ == '__main__':
-   update_check()
+   main()
