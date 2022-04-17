@@ -7,8 +7,7 @@ import datetime
 import time
 
 G = Github(open("key.txt", "r").read())
-VERSION = 1.3
-# secret
+VERSION = 1.4
 
 def update_check():
     repo = G.get_repo("acetheking987/python-server")
@@ -26,10 +25,11 @@ def main():
             sl(5)
             reload(programme)
             start = time.time()
-            programme.main()
+            upload = programme.main()
             end = time.time()
-            file = f"{datetime.datetime.now().strftime('%d/%m/output %H:%M:%S')}.json"
-            repo.create_file(file, f"took {round(end - start, 3)}s to complete", open("output.json", "r").read())
+            if upload == True:
+                file = f"{datetime.datetime.now().strftime('%d/%m/output %H:%M:%S')}.json"
+                repo.create_file(file, f"took {round(end - start, 3)}s to complete", open("output.json", "r").read())
             print(f"took {round(end - start, 3)}s to complete")
 
         except Exception as e:
