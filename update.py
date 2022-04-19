@@ -9,11 +9,11 @@ G = Github(open("key.txt", "r").read())     #github key
 
 ########################################################################################################################
 
-def update(time_start):       #update main script
+def update():       #update main script
     print("updating")
     repo = G.get_repo("acetheking987/python-server")
     content = repo.get_contents("main.py")
     open("main.py", "wb").write(content.decoded_content)
     sl(5)
     reload(main)
-    main.main(time_start)
+    main.main()

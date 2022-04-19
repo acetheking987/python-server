@@ -15,20 +15,20 @@ VERSION = 1.9
 
 ########################################################################################################################
 
-def update_check(time_start):               #update check
+def update_check():               #update check
     repo = G.get_repo("acetheking987/python-server")
     content = repo.get_contents("version.md")
     if float(content.decoded_content) > VERSION:
-        update.update(time_start)
+        update.update()
 
 ########################################################################################################################
 
-def main(time_start):                       #main function
+def main():                       #main function
     cycles = 0
     while True:
         cycles += 1
         try:
-            update_check(time_start)
+            update_check()
 
 ########################################################################################################################
 
@@ -70,7 +70,6 @@ def main(time_start):                       #main function
                 stats = f"""
 
                 date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}
-                online for: {round(time.time() - time_start, 3)}s
                 cycles: {cycles}
 
                          """
@@ -93,4 +92,4 @@ def main(time_start):                       #main function
 ########################################################################################################################
 
 if __name__ == '__main__':            #run main function
-   main(time.time())
+   main()
