@@ -9,7 +9,7 @@ import time
 import json
 
 G = Github(open("key.txt", "r").read())
-VERSION = 2.3
+VERSION = 2.4
 
 def update_check():
     repo = G.get_repo("acetheking987/python-server")
@@ -45,9 +45,9 @@ def main():
                         if "404" in str(e):
                             repo.create_file(name, f"took {round(end - start, 3)}s to complete", json.dumps(upload, indent=4))
 
-
-                file = f"{datetime.datetime.now().strftime('%d/%m/output %H:%M:%S')}.json"
-                repo.create_file(file, f"took {round(end - start, 3)}s to complete", json.dumps(upload, indent=4))
+                else:
+                    file = f"{datetime.datetime.now().strftime('%d/%m/output %H:%M:%S')}.json"
+                    repo.create_file(file, f"took {round(end - start, 3)}s to complete", json.dumps(upload, indent=4))
 
             print(f"took {round(end - start, 3)}s to complete  |  cycle {cycles}")
 
