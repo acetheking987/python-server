@@ -1,3 +1,3 @@
 def main():
     print("waiting for code...")
-    return(None)
+    return({"filename": None, "data": None, "upload": None})

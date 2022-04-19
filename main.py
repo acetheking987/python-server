@@ -1,4 +1,4 @@
-from github import Github
+from github import Github                   #packages
 from importlib import reload
 from time import sleep as sl
 import psutil
@@ -8,53 +8,78 @@ import datetime
 import time
 import json
 
-G = Github(open("key.txt", "r").read())
-VERSION = 1.8
+########################################################################################################################
 
-def update_check():
+G = Github(open("key.txt", "r").read())     #github key and version
+VERSION = 1.9
+
+########################################################################################################################
+
+def update_check(time_start):               #update check
     repo = G.get_repo("acetheking987/python-server")
     content = repo.get_contents("version.md")
     if float(content.decoded_content) > VERSION:
-        update.update()
+        update.update(time_start)
 
-def main():
+########################################################################################################################
+
+def main(time_start):                       #main function
     cycles = 0
     while True:
         cycles += 1
         try:
-            update_check()
+            update_check(time_start)
 
-            repo = G.get_repo("acetheking987/python-server")
+########################################################################################################################
+
+            repo = G.get_repo("acetheking987/python-server")    #get programme and run it
             content = repo.get_contents("code.py")
             open("programme.py", "wb").write(content.decoded_content)
 
-            sl(5)
+            sl(1)
             reload(programme)
         
             start = time.time()
             upload = programme.main()
             end = time.time()
 
-            if upload:
+########################################################################################################################
+
+            if upload["uplaod"]:           #upload data to github
+                if upload["filename"]:
+                    try:
+                        content = repo.get_contents(upload["filename"])
+                        repo.update_file(upload["filename"], f"took {round(end - start, 3)}s to complete", upload["data"], content.sha)
+
+                    except Exception as e:
+                        if "404" in str(e):
+                            repo.create_file(upload["filename"], f"took {round(end - start, 3)}s to complete", json.dumps(upload["data"]))
+
+
                 file = f"{datetime.datetime.now().strftime('%d/%m/output %H:%M:%S')}.json"
                 repo.create_file(file, f"took {round(end - start, 3)}s to complete", json.dumps(upload))
 
-            print(f"took {round(end - start, 3)}s to complete  |  cycle {cycles}")
+########################################################################################################################
 
-            if cycles % 60 == 0:
+            print(f"took {round(end - start, 3)}s to complete  |  cycle {cycles}") #print time taken to console
+
+########################################################################################################################
+
+            if cycles % 180 == 0:      #send stats to github
                 content = repo.get_contents("stats.md")
                 stats = f"""
 
                 date: {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}
-                cpu: {psutil.cpu_percent()}%
-                ram: {psutil.virtual_memory().percent}%
+                online for: {round(time.time() - time_start, 3)}s
                 cycles: {cycles}
 
                          """
 
                 repo.update_file("stats.md", "updated stats", stats, content.sha)
 
-        except Exception as e:
+########################################################################################################################
+
+        except Exception as e:        #handle errors
             try:
                 file = f"error{datetime.datetime.now().strftime('%d/%m/%H:%M:%S')}.md"
                 repo.create_file(file, "created new error file", e)
@@ -65,5 +90,7 @@ def main():
                 sl(60)
                 pass
 
-if __name__ == '__main__':
-   main()
+########################################################################################################################
+
+if __name__ == '__main__':            #run main function
+   main(time.time())
