@@ -32,11 +32,11 @@ def main():
             reload(programme)
         
             start = time.time()
-            upload = programme.main()
+            upload, filename = programme.main()
             end = time.time()
 
-            if upload["uplaod"]:
-                if upload["filename"]:
+            if upload:
+                if filename:
                     try:
                         content = repo.get_contents(upload["filename"])
                         repo.update_file(upload["filename"], f"took {round(end - start, 3)}s to complete", upload["data"], content.sha)
