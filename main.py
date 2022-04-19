@@ -9,7 +9,7 @@ import time
 import json
 
 G = Github(open("key.txt", "r").read())
-VERSION = 2.1
+VERSION = 2.2
 
 def update_check():
     repo = G.get_repo("acetheking987/python-server")
