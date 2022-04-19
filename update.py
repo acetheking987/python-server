@@ -3,13 +3,9 @@ from importlib import reload
 import main
 from time import sleep as sl
 
-########################################################################################################################
+G = Github(open("key.txt", "r").read())
 
-G = Github(open("key.txt", "r").read())     #github key
-
-########################################################################################################################
-
-def update():       #update main script
+def update():
     print("updating")
     repo = G.get_repo("acetheking987/python-server")
     content = repo.get_contents("main.py")
