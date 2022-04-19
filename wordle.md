@@ -1,1 +1,1 @@
-"#foyer"
+"foyer"
